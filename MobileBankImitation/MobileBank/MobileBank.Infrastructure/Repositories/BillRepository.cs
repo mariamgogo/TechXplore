@@ -46,7 +46,10 @@ namespace MobileBank.Infrastructure.Repositories
         {
             await base.RemoveAsync(cancellationToken, id);
         }
-
+        public async Task<bool> ExistsAsyncId(CancellationToken cancellationToken, int id)
+        {
+            return await base.AnyAsync(cancellationToken, x => x.Id == id);
+        }
 
     }
 }

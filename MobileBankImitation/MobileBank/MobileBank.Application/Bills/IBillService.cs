@@ -9,6 +9,6 @@ namespace MobileBank.Application.Bills
         Task<BillResponseGetAllModel> GetFullAsync(CancellationToken cancellationToken,int id);
         Task DeletAsync(CancellationToken cancellationToken, int id);
         Task CreateAsync(CancellationToken cancellationToken, BillRequestModel bill);
-        Task UpdateAsync(CancellationToken cancellationToken, BillRequestModel bill);
+        Task UpdateAsync(CancellationToken cancellationToken, BillRequestPutModel bill);
     }
 }

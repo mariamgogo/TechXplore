@@ -51,26 +51,28 @@ namespace MobileBank.Application.Bills
                     ProviderLogo = result.Provider?.LogoLink,
                     CustomerId = result.CustomerId,
                     CustomerFullName = result.Customer?.FirstName + " " + result.Customer?.LastName
-                };
+                };  
         }
         public async Task CreateAsync(CancellationToken cancellationToken, BillRequestModel bill)
         {
-            if (await GetAsync(cancellationToken, bill.Id) != null) throw new BillAlreadyExistsException(bill.Id.ToString());
+           // if (await GetAsync(cancellationToken, bill.Id) != null) throw new BillAlreadyExistsException(bill.Id.ToString());
             var billToInsert = bill.Adapt<Bill>();
             await _billRepository.CreateAsync(cancellationToken, billToInsert);
         }
 
 
-        public async Task UpdateAsync(CancellationToken cancellationToken, BillRequestModel bill)
+        public async Task UpdateAsync(CancellationToken cancellationToken, BillRequestPutModel bill)
         {
-            if (await GetAsync(cancellationToken, bill.Id) == null) throw new BillNotFoundException(bill.Id.ToString());
+            if (!await _billRepository.ExistsAsyncId(cancellationToken, bill.Id))
+                throw new CustomerNotFoundException(bill.Id.ToString());
 
             var billToUpdate = bill.Adapt<Bill>();
             await _billRepository.UpdateAsync(cancellationToken, billToUpdate);
         }
         public async Task DeletAsync(CancellationToken cancellationToken, int id)
         {
-            if (await GetAsync(cancellationToken, id) == null) throw new BillNotFoundException(id.ToString());
+            if (!await _billRepository.ExistsAsyncId(cancellationToken: cancellationToken, id))
+                throw new BillNotFoundException(id.ToString());
 
             await _billRepository.DeletAsync(cancellationToken, id);
         }

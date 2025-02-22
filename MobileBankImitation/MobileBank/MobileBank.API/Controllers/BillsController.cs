@@ -65,7 +65,7 @@ namespace MobileBank.API.Controllers
         [SwaggerOperation(Summary = "Update an existing bill", Description = "Updates details of existing bill.")]
         [SwaggerResponse(200, "Bill  updated")]
         [SwaggerResponse(400, "Invalid bill data")]
-        public async Task Update(CancellationToken token, BillRequestModel bill)
+        public async Task Update(CancellationToken token, BillRequestPutModel bill)
         {
           
             await _billService.UpdateAsync(token, bill);

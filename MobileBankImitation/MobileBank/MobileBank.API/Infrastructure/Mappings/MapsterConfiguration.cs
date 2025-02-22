@@ -11,11 +11,11 @@ namespace MobileBank.API.Infrastructure.Mappings
         {
             TypeAdapterConfig<Customer, CustomerResponseModel>.NewConfig().TwoWays();
 
-            TypeAdapterConfig<CustomerRequestModel,Customer>.NewConfig().TwoWays();
+            TypeAdapterConfig<CustomerRequestPostModel,Customer>.NewConfig().TwoWays();
 
             TypeAdapterConfig<Provider, ProviderResponseModel>.NewConfig().TwoWays();
 
-            TypeAdapterConfig<ProviderRequestModel, Provider>.NewConfig().TwoWays();
+            TypeAdapterConfig<ProviderRequestPostModel, Provider>.NewConfig().TwoWays();
 
         }
     }

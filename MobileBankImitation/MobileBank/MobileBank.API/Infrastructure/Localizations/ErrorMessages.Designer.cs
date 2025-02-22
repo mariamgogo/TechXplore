@@ -71,6 +71,24 @@ namespace MobileBank.API.Infrastructure.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to bill already exists.
+        /// </summary>
+        public static string BillAlreadyExists {
+            get {
+                return ResourceManager.GetString("BillAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bill in not found.
+        /// </summary>
+        public static string BillNotFound {
+            get {
+                return ResourceManager.GetString("BillNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to customer already exists .
         /// </summary>
         public static string CustomerAlreadyExists {

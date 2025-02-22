@@ -27,7 +27,7 @@ namespace MobileBank.Application.Providers
             else
                 return result.Adapt<ProviderResponseModel>();
         }
-        public async Task CreateAsync(CancellationToken cancellationToken, ProviderRequestModel provider)
+        public async Task CreateAsync(CancellationToken cancellationToken, ProviderRequestPostModel provider)
         {
             //if (await GetAsync(cancellationToken, provider.Id) != null) throw new ProviderAlreadyExistsException(provider.Id.ToString());
             var providerToInsert = provider.Adapt<Provider>();
@@ -42,10 +42,10 @@ namespace MobileBank.Application.Providers
         }
 
 
-        public async Task UpdateAsync(CancellationToken cancellationToken, ProviderRequestModel provider)
+        public async Task UpdateAsync(CancellationToken cancellationToken, ProviderRequestPutModel provider)
         {
-            if (!await _providerRepository.ExistsAsyncIdentifier(cancellationToken, provider.Name))
-                throw new ProviderNotFoundException(provider.Name);
+            if (!await _providerRepository.ExistsAsyncId(cancellationToken, provider.Id))
+                throw new ProviderNotFoundException(provider.Id.ToString());
             var providerToUpdate = provider.Adapt<Provider>();
             await _providerRepository.UpdateAsync(cancellationToken, providerToUpdate);
         }

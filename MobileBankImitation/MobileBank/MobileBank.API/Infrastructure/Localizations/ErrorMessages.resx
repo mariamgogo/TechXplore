@@ -148,4 +148,10 @@
     <value>customer has invalid properties
 </value>
   </data>
+  <data name="BillNotFound" xml:space="preserve">
+    <value>bill in not found</value>
+  </data>
+  <data name="BillAlreadyExists" xml:space="preserve">
+    <value>bill already exists</value>
+  </data>
 </root>

@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using MobileBank.Application.Customers;
 using MobileBank.API.Infrastructure.Localizations;
+using MobileBank.Application.Customers;
 
 namespace MobileBank.API.Infrastructure.Validators
 {
-    public class CustomerValidator : AbstractValidator<CustomerRequestModel>
+    public class CustomerValidatorPut : AbstractValidator<CustomerRequestPutModel>
     {
-        public CustomerValidator()
+        public CustomerValidatorPut()
         {
             RuleFor(x => x.Identifier)
               .NotEmpty()

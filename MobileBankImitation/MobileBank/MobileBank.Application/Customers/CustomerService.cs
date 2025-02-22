@@ -26,7 +26,7 @@ namespace MobileBank.Application.Customers
             else 
                 return result.Adapt<CustomerResponseModel>();
         }
-        public async Task CreateAsync(CancellationToken cancellationToken, CustomerRequestModel customer)
+        public async Task CreateAsync(CancellationToken cancellationToken, CustomerRequestPostModel customer)
         {
            // if(await GetAsync(cancellationToken,customer.Id) != null) throw new CustomerAlreadyExistsException(customer.Id.ToString());
             var customerToInsert = customer.Adapt<Customer>();
@@ -42,10 +42,10 @@ namespace MobileBank.Application.Customers
            await _customerRepository.DeletAsync(cancellationToken, id);
         }
 
-        public async Task UpdateAsync(CancellationToken cancellationToken, CustomerRequestModel customer)
+        public async Task UpdateAsync(CancellationToken cancellationToken, CustomerRequestPutModel customer)
         {
-            if (!await _customerRepository.ExistsAsyncIdentifier(cancellationToken, customer.Identifier))
-                throw new CustomerNotFoundException(customer.Identifier);
+            if (!await _customerRepository.ExistsAsyncId(cancellationToken, customer.Id))
+                throw new CustomerNotFoundException(customer.Id.ToString());
 
             var customerToUpdate = customer.Adapt<Customer>();
             await _customerRepository.UpdateAsync(cancellationToken, customerToUpdate);

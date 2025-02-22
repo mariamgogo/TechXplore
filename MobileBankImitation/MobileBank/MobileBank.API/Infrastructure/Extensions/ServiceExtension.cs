@@ -1,4 +1,5 @@
-﻿using MobileBank.Application.Accounts;
+﻿using MobileBank.API.Infrastructure.Validators;
+using MobileBank.Application.Accounts;
 using MobileBank.Application.Bills;
 using MobileBank.Application.Customers;
 using MobileBank.Application.Providers;
@@ -9,7 +10,7 @@ using System.Reflection.Metadata;
 
 namespace MobileBank.API.Infrastructure.Extensions
 {
-    public static class ServiceExtensions
+    public static class ServiceExtension
     {
         public static void AddServices(this IServiceCollection services)
         {
@@ -23,6 +24,7 @@ namespace MobileBank.API.Infrastructure.Extensions
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<IBillService,BillService>();
+          //  services.AddScoped<CustomerValidator, CustomerValidator>();
         }
     }
 }

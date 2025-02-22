@@ -31,7 +31,7 @@ namespace MobileBank.Infrastructure.Repositories
         public async Task AddAsync(CancellationToken token, T entity)
         {
             await _dbSet.AddAsync(entity, token);
-            await SaveChangesAsync(token);
+            _context.SaveChanges();
         }
 
         public async Task UpdateAsync(CancellationToken token, T entity)
@@ -40,7 +40,7 @@ namespace MobileBank.Infrastructure.Repositories
                 return;
 
             _dbSet.Update(entity);
-            await SaveChangesAsync(token);
+            _context.SaveChanges();
         }
 
         public async Task RemoveAsync(CancellationToken token, params object[] key)
@@ -54,6 +54,7 @@ namespace MobileBank.Infrastructure.Repositories
         {
             return await _dbSet.AnyAsync(predicate, token);
         }
+
 
         private async Task SaveChangesAsync(CancellationToken token)
         {

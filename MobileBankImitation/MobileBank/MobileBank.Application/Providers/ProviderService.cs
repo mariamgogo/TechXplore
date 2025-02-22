@@ -2,6 +2,7 @@
 using MobileBank.Application.Repositories;
 using MobileBank.Application.Providers.ProviderExceptions;
 using MobileBank.Domain.Entities;
+using MobileBank.Application.Customers.CustomerExceptions;
 
 namespace MobileBank.Application.Providers
 {
@@ -28,7 +29,7 @@ namespace MobileBank.Application.Providers
         }
         public async Task CreateAsync(CancellationToken cancellationToken, ProviderRequestModel provider)
         {
-            if (await GetAsync(cancellationToken, provider.Id) != null) throw new ProviderAlreadyExistsException(provider.Id.ToString());
+            //if (await GetAsync(cancellationToken, provider.Id) != null) throw new ProviderAlreadyExistsException(provider.Id.ToString());
             var providerToInsert = provider.Adapt<Provider>();
             await _providerRepository.CreateAsync(cancellationToken, providerToInsert);
         }
@@ -43,8 +44,8 @@ namespace MobileBank.Application.Providers
 
         public async Task UpdateAsync(CancellationToken cancellationToken, ProviderRequestModel provider)
         {
-            if (await GetAsync(cancellationToken, provider.Id) == null) throw new ProviderNotFoundException(provider.Id.ToString());
-
+            if (!await _providerRepository.ExistsAsyncIdentifier(cancellationToken, provider.Name))
+                throw new ProviderNotFoundException(provider.Name);
             var providerToUpdate = provider.Adapt<Provider>();
             await _providerRepository.UpdateAsync(cancellationToken, providerToUpdate);
         }

@@ -1,6 +1,7 @@
 ﻿using MobileBank.Application.Repositories;
 using MobileBank.Domain.Entities;
 using MobileBank.Persistence.Context;
+using System.Threading;
 
 namespace MobileBank.Infrastructure.Repositories
 {
@@ -32,11 +33,15 @@ namespace MobileBank.Infrastructure.Repositories
             await base.UpdateAsync(cancellationToken, customer);
         }
 
-        public async Task<bool> ExistsAsync(CancellationToken cancellationToken, int id)
+
+        public async Task<bool> ExistsAsyncIdentifier(CancellationToken cancellationToken, string identifier)
+        {
+            return await base.AnyAsync(cancellationToken, x => x.Identifier == identifier);
+        }
+
+        public async Task<bool> ExistsAsyncId(CancellationToken cancellationToken, int id)
         {
             return await base.AnyAsync(cancellationToken, x => x.Id == id);
         }
-
-
     }
 }

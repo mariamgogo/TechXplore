@@ -32,7 +32,16 @@ namespace MobileBank.Infrastructure.Repositories
         {
             await base.RemoveAsync(cancellationToken, id);
         }
+        public async Task<bool> ExistsAsyncIdentifier(CancellationToken cancellationToken, string name)
+        {
+            return await base.AnyAsync(cancellationToken, x => x.Name == name);
+        }
 
-       
+        public async Task<bool> ExistsAsyncId(CancellationToken cancellationToken, int id)
+        {
+            return await base.AnyAsync(cancellationToken, x => x.Id == id);
+        }
+
+
     }
 }

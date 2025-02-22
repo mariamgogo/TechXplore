@@ -12,7 +12,10 @@ namespace MobileBank.Infrastructure.Repositories
         }
         public async Task<List<Bill>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await base.GetAllAsync(cancellationToken);
+              return await _dbSet
+                .Include(b => b.Provider)
+                .Include(b => b.Customer)
+                .ToListAsync(cancellationToken);
         }
         public async Task<Bill> GetAsync(CancellationToken cancellationToken, int id)
         {
@@ -22,12 +25,12 @@ namespace MobileBank.Infrastructure.Repositories
 
         public async Task<Bill?> GetFullAsync(CancellationToken cancellationToken, int id)
         {
-            
-                return await _dbSet
-                    .Include(b => b.Provider)
-                    .Include(b => b.Customer)
-                    .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
-            
+
+            return await _dbSet
+                .Include(b => b.Provider)
+                .Include(b => b.Customer)
+                .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+
         }
 
         public async Task CreateAsync(CancellationToken cancellationToken, Bill bill)

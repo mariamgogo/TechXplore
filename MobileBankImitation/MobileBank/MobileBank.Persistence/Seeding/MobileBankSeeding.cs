@@ -124,7 +124,15 @@ namespace MobileBank.Persistence.Seeding
             {
                 if (!context.Bills.Any(x => x.ProviderId == provider1.Id && x.CustomerId == customer1.Id))
                 {
-                    context.Bills.Add(new Bill { Amount = 10.5m, CustomerId = customer1.Id, ProviderId = provider1.Id });
+                    context.Bills.Add(new Bill { Amount = -10.5m, CustomerId = customer1.Id, ProviderId = provider1.Id });
+                    seeded = true;
+                }
+            }
+            if (customer1 != null && provider2 != null)
+            {
+                if (!context.Bills.Any(x => x.ProviderId == provider2.Id && x.CustomerId == customer1.Id))
+                {
+                    context.Bills.Add(new Bill { Amount = -70.5m, CustomerId = customer1.Id, ProviderId = provider2.Id });
                     seeded = true;
                 }
             }
@@ -133,16 +141,24 @@ namespace MobileBank.Persistence.Seeding
             {
                 if (!context.Bills.Any(x => x.ProviderId == provider3.Id && x.CustomerId == customer1.Id))
                 {
-                    context.Bills.Add(new Bill { Amount = 12.5m, CustomerId = customer1.Id, ProviderId = provider3.Id });
+                    context.Bills.Add(new Bill { Amount = -12.5m, CustomerId = customer1.Id, ProviderId = provider3.Id });
                     seeded = true;
                 }
             }
 
+            if (customer2 != null && provider3 != null)
+            {
+                if (!context.Bills.Any(x => x.ProviderId == provider3.Id && x.CustomerId == customer2.Id))
+                {
+                    context.Bills.Add(new Bill { Amount = -83.7m, CustomerId = customer2.Id, ProviderId = provider3.Id });
+                    seeded = true;
+                }
+            }
             if (customer2 != null && provider2 != null)
             {
                 if (!context.Bills.Any(x => x.ProviderId == provider2.Id && x.CustomerId == customer2.Id))
                 {
-                    context.Bills.Add(new Bill { Amount = 10.5m, CustomerId = customer2.Id, ProviderId = provider2.Id });
+                    context.Bills.Add(new Bill { Amount = -19.9m, CustomerId = customer2.Id, ProviderId = provider2.Id });
                     seeded = true;
                 }
             }

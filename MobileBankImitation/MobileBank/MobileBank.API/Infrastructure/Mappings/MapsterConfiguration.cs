@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MobileBank.Application.Customers;
+using MobileBank.Application.Providers;
 using MobileBank.Domain.Entities;
 
 namespace MobileBank.API.Infrastructure.Mappings
@@ -11,6 +12,11 @@ namespace MobileBank.API.Infrastructure.Mappings
             TypeAdapterConfig<Customer, CustomerResponseModel>.NewConfig().TwoWays();
 
             TypeAdapterConfig<CustomerRequestModel,Customer>.NewConfig().TwoWays();
+
+            TypeAdapterConfig<Provider, ProviderResponseModel>.NewConfig().TwoWays();
+
+            TypeAdapterConfig<ProviderRequestModel, Provider>.NewConfig().TwoWays();
+
         }
     }
 }

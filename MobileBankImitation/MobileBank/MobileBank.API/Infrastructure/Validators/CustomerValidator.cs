@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MobileBank.Application.Customers;
+using MobileBank.API.Infrastructure.Localizations;
 
 namespace MobileBank.API.Infrastructure.Validators
 {
@@ -10,19 +11,19 @@ namespace MobileBank.API.Infrastructure.Validators
             RuleFor(x => x.Identifier)
               .NotEmpty()
               .Length(11)
-              .WithMessage("error")
+              .WithMessage(ErrorMessages.IdentifierConstraint)
               .Matches("^[0-9]+$");
 
-            RuleFor(x => x.Email).EmailAddress();
+            RuleFor(x => x.Email).EmailAddress().WithMessage(ErrorMessages.EmailConstraint);
 
             RuleFor(x => x.Age)
             .Must(x => x > 18)
-            .WithMessage("error");
+            .WithMessage(ErrorMessages.AgeError);
 
 
             RuleFor(x => x.PhoneNumber)
             .NotEmpty()
-            .Matches(@"^9955\d{7}$").WithMessage("eeror");
+            .Matches(@"^9955\d{7}$").WithMessage(ErrorMessages.PhoneNumber);
         }
     }
 }

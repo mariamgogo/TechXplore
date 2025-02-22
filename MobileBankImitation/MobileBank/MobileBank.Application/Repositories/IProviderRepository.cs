@@ -9,5 +9,8 @@ namespace MobileBank.Application.Repositories
         Task DeletAsync(CancellationToken cancellationToken, int id);
         Task CreateAsync(CancellationToken cancellationToken, Provider provider);
         Task UpdateAsync(CancellationToken cancellationToken, Provider provider);
+        Task<bool> ExistsAsyncIdentifier(CancellationToken cancellationToken, string name);
+        Task<bool> ExistsAsyncId(CancellationToken cancellationToken, int id);
+
     }
 }

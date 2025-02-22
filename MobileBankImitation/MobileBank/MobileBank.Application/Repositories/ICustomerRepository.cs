@@ -10,6 +10,8 @@ namespace MobileBank.Application.Repositories
         Task DeletAsync(CancellationToken cancellationToken, int id);
         Task CreateAsync(CancellationToken cancellationToken, Customer customer);
         Task UpdateAsync(CancellationToken cancellationToken, Customer customer);
-        Task<bool> ExistsAsync(CancellationToken cancellationToken, int id);
+        Task<bool> ExistsAsyncIdentifier(CancellationToken cancellationToken, string identifier);
+        Task<bool> ExistsAsyncId(CancellationToken cancellationToken, int id);
+
     }
 }

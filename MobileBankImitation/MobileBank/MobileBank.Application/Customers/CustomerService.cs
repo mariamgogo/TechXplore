@@ -36,7 +36,7 @@ namespace MobileBank.Application.Customers
 
         public async Task DeleteAsync(CancellationToken cancellationToken, int id)
         {
-            if (!await _customerRepository.ExistsAsync(cancellationToken: cancellationToken, id))
+            if (!await _customerRepository.ExistsAsyncId(cancellationToken: cancellationToken, id))
                 throw new CustomerNotFoundException(id.ToString());
 
            await _customerRepository.DeletAsync(cancellationToken, id);
@@ -44,7 +44,8 @@ namespace MobileBank.Application.Customers
 
         public async Task UpdateAsync(CancellationToken cancellationToken, CustomerRequestModel customer)
         {
-            if (await GetAsync(cancellationToken, customer.Id) == null) throw new CustomerNotFoundException(customer.Id.ToString());
+            if (!await _customerRepository.ExistsAsyncIdentifier(cancellationToken, customer.Identifier))
+                throw new CustomerNotFoundException(customer.Identifier);
 
             var customerToUpdate = customer.Adapt<Customer>();
             await _customerRepository.UpdateAsync(cancellationToken, customerToUpdate);

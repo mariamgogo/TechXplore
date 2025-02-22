@@ -14,11 +14,21 @@ namespace MobileBank.Application.Bills
             _billRepository = billRepository;
         }
 
-        public async Task<List<BillResponseModel>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<List<BillResponseGetAllModel>> GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await _billRepository.GetAllAsync(cancellationToken);
-            return result.Adapt<List<BillResponseModel>>();
+
+            return result.Select(bill => new BillResponseGetAllModel
+            {
+                Amount = bill.Amount,
+                ProviderId = bill.ProviderId,
+                ProviderName = bill.Provider?.Name,
+                ProviderLogo = bill.Provider?.LogoLink,
+                CustomerId = bill.CustomerId,
+                CustomerFullName = $"{bill.Customer?.FirstName} {bill.Customer?.LastName}"
+            }).ToList();
         }
+
 
         public async Task<BillResponseModel> GetAsync(CancellationToken cancellationToken, int id)
         {

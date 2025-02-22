@@ -20,7 +20,7 @@ namespace MobileBank.API.Controllers
 
 
         [HttpGet]
-        public async Task<List<BillResponseModel>> GetAll(CancellationToken token)
+        public async Task<List<BillResponseGetAllModel>> GetAll(CancellationToken token)
 
         {
             return await _billService.GetAllAsync(token);

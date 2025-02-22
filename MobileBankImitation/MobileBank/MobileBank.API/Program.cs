@@ -6,6 +6,11 @@ using MobileBank.Persistence;
 using MobileBank.Persistence.Context;
 using MobileBank.Persistence.Seeding;
 using Serilog;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using MobileBank.API;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,11 +45,30 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+MobileBank.API.CorsOptions corsOptions = app.Services.GetService<IOptions<MobileBank.API.CorsOptions>>()!.Value;
+
+
+if (corsOptions.CorsEnabled)
+{
+    string[] origins = MobileBank.API.CorsOptions.GetCorsOrigins(corsOptions);
+    app.UseCors(builder =>
+    {
+        builder.WithOrigins(origins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+}
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCulture();
 
 app.MapControllers();
 
 MobileBankSeeding.Initialize(app.Services);
 app.Run();
+
+
